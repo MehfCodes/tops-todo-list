@@ -5,8 +5,8 @@
  * file.
  */
 
-import Env from '@ioc:Adonis/Core/Env'
-import { HashConfig } from '@ioc:Adonis/Core/Hash'
+import Env from '@ioc:Adonis/Core/Env';
+import { HashConfig } from '@ioc:Adonis/Core/Hash';
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +27,7 @@ const hashConfig: HashConfig = {
   | free to change the default value
   |
   */
-  default: Env.get('HASH_DRIVER', 'argon'),
+  default: Env.get('HASH_DRIVER', 'bcrypt'),
 
   list: {
     /*
@@ -70,6 +70,6 @@ const hashConfig: HashConfig = {
       rounds: 10,
     },
   },
-}
+};
 
-export default hashConfig
+export default hashConfig;
