@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
-import { BaseModel, column, beforeSave } from '@ioc:Adonis/Lucid/Orm';
+import { BaseModel, column, beforeSave, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm';
 import Hash from '@ioc:Adonis/Core/Hash';
+import Task from './Task';
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -17,6 +18,9 @@ export default class User extends BaseModel {
 
   @column()
   public phone_number: string;
+
+  @hasMany(() => Task)
+  public posts: HasMany<typeof Task>;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
