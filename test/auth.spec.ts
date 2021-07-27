@@ -63,11 +63,19 @@ test.group('/api/v1/auth', () => {
   });
   test('/login -- ChECK : existing of the refresh token', async (assert: Assert) => {
     const user = {
-      username: 'mehf',
-      password: '123456789',
+      userId: '1',
     };
-    const res = await supertest(BASE_URL).post('login').send(user);
-    const refreshToken = res.body.data.refreshToken;
-    assert.exists(refreshToken, 'refresh token generated');
+    const res = await supertest(BASE_URL).post('refresh-token').send(user);
+    const accessToken = res.body.data.accessToken;
+    assert.exists(accessToken, 'refresh token generated');
+  });
+
+  test('/login -- ERROR : expiring of the refresh token', async (assert: Assert) => {
+    const user = {
+      userId: '5',
+    };
+    const res = await supertest(BASE_URL).post('refresh-token').send(user);
+
+    assert.equal(res.statusCode, 401, 'refresh token was expired');
   });
 });
