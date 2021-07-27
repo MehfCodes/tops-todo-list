@@ -20,7 +20,7 @@ export default class AuthController {
       reporter: ValidationErrorsReporter,
     });
     const newUser = await User.create(payload);
-    const accessToken = this.generateToken({ id: newUser.id }, 'ACCESS_TOKEN_SECRET');
+    const accessToken = this.generateToken({ id: newUser.id });
     const refreshToken = randomBytes(30).toString('hex');
     clientRedis.setex(String(newUser.id), 1000 * 60 * 60 * 24, refreshToken);
     response.status(201);
@@ -39,17 +39,17 @@ export default class AuthController {
       response.status(401);
       return { data: { error: 'incorrect password!' } };
     }
-    const accessToken = this.generateToken({ id: user.id }, 'ACCESS_TOKEN_SECRET');
+    const accessToken = this.generateToken({ id: user.id });
     const refreshToken = randomBytes(30).toString('hex');
     clientRedis.setex(String(user.id), 1000 * 60 * 60 * 24, refreshToken);
     response.status(200);
     return { data: { user, accessToken } };
   }
 
-  private generateToken(payload: { id: number }, secret: string) {
-    let ex =
-      secret === 'ACCESS_TOKEN_SECRET' ? Env.get('EX_ACCESS_TOKEN') : Env.get('EX_REFRESH_TOKEN');
-    const token = sign(payload, Env.get(secret), { expiresIn: ex });
+  private generateToken(payload: { id: number }) {
+    const token = sign(payload, Env.get('ACCESS_TOKEN_SECRET'), {
+      expiresIn: Env.get('EX_ACCESS_TOKEN'),
+    });
     return token;
   }
 
@@ -60,7 +60,7 @@ export default class AuthController {
     const refreshToken = await getCache(String(body.userId));
     if (refreshToken) {
       response.status(200);
-      const accessToken = this.generateToken({ id: body.userId }, 'ACCESS_TOKEN_SECRET');
+      const accessToken = this.generateToken({ id: body.userId });
       return { data: { accessToken } };
     } else {
       response.status(401);

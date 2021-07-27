@@ -38,5 +38,4 @@ export default Env.rules({
   ACCESS_TOKEN_SECRET: Env.schema.string(),
   REFRESH_TOKEN_SECRET: Env.schema.string(),
   EX_ACCESS_TOKEN: Env.schema.string(),
-  EX_REFRESH_TOKEN: Env.schema.string(),
 });
