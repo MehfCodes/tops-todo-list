@@ -37,7 +37,7 @@ test.group('/api/v1/auth', () => {
   });
   test('/login -- ERROR : user not found during login', async (assert: Assert) => {
     const user = {
-      field: 'mehf2',
+      username: 'mehf2',
       password: '123456789',
     };
     const res = await supertest(BASE_URL).post(`login`).send(user);
@@ -46,7 +46,7 @@ test.group('/api/v1/auth', () => {
 
   test('/login -- ERROR: incurrect password during login', async (assert: Assert) => {
     const user = {
-      field: 'mehf',
+      username: 'mehf',
       password: '123456788',
     };
     const res = await supertest(BASE_URL).post(`login`).send(user);

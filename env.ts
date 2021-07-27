@@ -33,4 +33,10 @@ export default Env.rules({
   MYSQL_USER_TEST: Env.schema.string(),
   MYSQL_PASSWORD_TEST: Env.schema.string.optional(),
   MYSQL_DB_NAME_TEST: Env.schema.string(),
+
+  //token secret
+  ACCESS_TOKEN_SECRET: Env.schema.string(),
+  REFRESH_TOKEN_SECRET: Env.schema.string(),
+  EX_ACCESS_TOKEN: Env.schema.string(),
+  EX_REFRESH_TOKEN: Env.schema.string(),
 });

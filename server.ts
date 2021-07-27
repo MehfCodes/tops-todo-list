@@ -10,10 +10,15 @@
 |
 */
 
-import 'reflect-metadata'
-import sourceMapSupport from 'source-map-support'
-import { Ignitor } from '@adonisjs/core/build/standalone'
-
-sourceMapSupport.install({ handleUncaughtExceptions: false })
-
-new Ignitor(__dirname).httpServer().start()
+import 'reflect-metadata';
+import sourceMapSupport from 'source-map-support';
+import { Ignitor } from '@adonisjs/core/build/standalone';
+import { createClient } from 'redis';
+import { promisify } from 'util';
+sourceMapSupport.install({ handleUncaughtExceptions: false });
+export const clientRedis = createClient();
+export const getCache = promisify(clientRedis.get).bind(clientRedis);
+clientRedis.on('error', function (error) {
+  console.error(error);
+});
+new Ignitor(__dirname).httpServer().start();
