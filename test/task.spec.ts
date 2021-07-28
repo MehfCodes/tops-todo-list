@@ -10,7 +10,7 @@ test.group('/api/v1/todos', () => {
       username: 'mehf',
       password: '123456789',
     };
-    const res = await supertest(`http://${process.env.HOST}:${process.env.PORT}/api/v1/auth/login`)
+    const res = await supertest(`http://${process.env.HOST}:${process.env.PORT}/api/v1/auth/`)
       .post('login')
       .send(user);
     const accessToken = res.body.data.accessToken;
@@ -25,10 +25,10 @@ test.group('/api/v1/todos', () => {
     };
 
     const res = await supertest(BASE_URL)
-      .post('store')
+      .post('')
       .send(task)
       .set('x-access-token', `Bearer ${token}`);
-    assert.equal(res.statusCode, 200, 'task was created');
+    assert.equal(res.statusCode, 201, 'task was created');
   });
 
   test('store -- ERROR : validation error during store', async (assert: Assert) => {
@@ -38,11 +38,11 @@ test.group('/api/v1/todos', () => {
     };
 
     const res = await supertest(BASE_URL)
-      .post('store')
+      .post('')
       .send(task)
       .set('x-access-token', `Bearer ${token}`);
-    const field = res.body.errors[0].field;
-    assert.equal(field, 'status', 'task was not created');
+
+    assert.equal(res.statusCode, 406, 'task was not created');
   });
 
   test('index', async (assert: Assert) => {

@@ -22,6 +22,7 @@ export default class TasksController {
     response.status(200);
     return { data: tasks };
   }
+
   public async update({ request, response, params }: AllowedUser) {
     const body = request.body();
     let task = await Task.findOrFail(params.id);
