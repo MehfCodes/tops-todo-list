@@ -7,7 +7,7 @@ export async function cacheOrSet(key: string, cb) {
       return JSON.parse(inCache);
     } else {
       const data = await cb();
-      clientRedis.setex('tasks', 3600, JSON.stringify(data));
+      clientRedis.setex(key, 3600, JSON.stringify(data));
       return data;
     }
   } catch (error) {

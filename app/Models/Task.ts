@@ -1,10 +1,6 @@
 import { DateTime } from 'luxon';
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm';
-enum Status {
-  todo,
-  doing,
-  done,
-}
+
 export default class Task extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
@@ -13,8 +9,7 @@ export default class Task extends BaseModel {
   public user_id: number;
 
   @column()
-  public status: Status;
-
+  public status: string;
   @column()
   public note: string;
 
