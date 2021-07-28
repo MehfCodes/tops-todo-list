@@ -38,4 +38,8 @@ export default Env.rules({
   ACCESS_TOKEN_SECRET: Env.schema.string(),
   REFRESH_TOKEN_SECRET: Env.schema.string(),
   EX_ACCESS_TOKEN: Env.schema.string(),
+
+  //redis
+  REDIS_HOST: Env.schema.string({ format: 'host' }),
+  REDIS_PORT: Env.schema.number(),
 });
