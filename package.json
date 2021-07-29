@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node ace build --production",
-    "start": "cross-env NODE_ENV=production node server.js",
+    "start": "cross-env NODE_ENV=production node ./build/server.js",
     "dev": "cross-env NODE_ENV=development node ace serve --watch",
     "test": "cross-env NODE_ENV=test node -r @adonisjs/assembler/build/register japaFile.ts",
     "lint": "eslint . --ext=.ts",
