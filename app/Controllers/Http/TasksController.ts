@@ -10,6 +10,10 @@ export default class TasksController {
       response.status(406);
       return { data: { message: 'task failed!' } };
     }
+    if (body.status !== 'todo') {
+      response.status(406);
+      return { data: { message: 'task failed!' } };
+    }
     const task = await Task.create({ user_id: user.id, ...body });
     response.status(201);
     return { data: task };
